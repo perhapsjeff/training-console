@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#e9e9e3">
-<title>Phase 4 / Training Console</title>
+<title>Lean Engine / Training Console</title>
 <style>
 :root{--paper:#e9e9e3;--card:#f8f8f4;--ink:#111310;--muted:#666b65;--line:#c8cbc3;--signal:#ff4f24;--blue:#2455ff;--inv:#101210;--invink:#f3f4ed;--mono:ui-monospace,"SFMono-Regular","SF Mono",Menlo,monospace;--sans:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif}
 @media(prefers-color-scheme:dark){:root{--paper:#0e100f;--card:#181b19;--ink:#eef0ea;--muted:#929890;--line:#303530;--signal:#ff6843;--blue:#7696ff;--inv:#eef0ea;--invink:#111310}}
@@ -21,83 +21,83 @@
 .run{margin-top:27px;background:var(--inv);color:var(--invink);padding:18px}.runhead{display:flex;justify-content:space-between;font:650 9px/1 var(--mono);letter-spacing:.13em;text-transform:uppercase;opacity:.58}.rmain{font-size:clamp(34px,10vw,58px);line-height:.86;letter-spacing:-.06em;font-weight:800;text-transform:uppercase;margin-top:24px}.rnote{font-size:13px;line-height:1.5;opacity:.68;margin-top:16px}
 .mobility{margin-top:12px;border:1px solid var(--line);background:var(--card);padding:15px}.mobh{display:flex;justify-content:space-between;gap:12px;align-items:baseline}.mobtitle{font:750 9px/1 var(--mono);letter-spacing:.15em;text-transform:uppercase}.mobtime{font:650 9px/1 var(--mono);color:var(--muted)}.mobnote{margin:9px 0 11px;color:var(--muted);font-size:12px;line-height:1.45}.mobmove{display:grid;grid-template-columns:1fr auto;gap:10px;border-top:1px solid var(--line);padding:9px 0;font-size:13px;line-height:1.25}.mobmove span:last-child{font:650 9px/1.3 var(--mono);color:var(--muted);text-align:right}.mobdone{width:100%;margin-top:7px;border:1px solid var(--ink);background:none;color:var(--ink);padding:10px;font:700 9px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase}.mobdone.on{background:var(--ink);color:var(--paper)}.fuel{margin-top:12px;border:1px solid var(--line);background:var(--card);padding:15px}.fuelh{font:750 9px/1 var(--mono);letter-spacing:.15em;color:var(--muted);text-transform:uppercase}.macros{font:750 16px/1.5 var(--mono);margin-top:9px}.fueln{border-top:1px solid var(--line);margin-top:11px;padding-top:11px;color:var(--muted);font-size:13px;line-height:1.45}
 .zones{margin:25px 0 8px;border-top:1px solid var(--ink);padding-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:7px 16px;font:600 9px/1.5 var(--mono);color:var(--muted)}.zones b{color:var(--ink)}.reset{width:100%;border:0;border-top:1px solid var(--line);background:none;padding:18px 0;text-align:left;font:650 9px/1 var(--mono);letter-spacing:.13em;color:var(--muted);text-transform:uppercase}
-.timer{position:fixed;z-index:50;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));display:none;background:var(--signal);color:#111;padding:13px 14px;box-shadow:0 8px 40px #0004}.timer.on{display:flex;align-items:center}.tlab{font:750 9px/1 var(--mono);letter-spacing:.14em}.tnum{font:800 30px/1 var(--mono);letter-spacing:-.07em;margin-top:4px}.timer button{margin-left:auto;border:1px solid #111;background:none;padding:9px 12px;font:700 9px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase}
+.timer{position:fixed;z-index:50;left:50%;transform:translateX(-50%);bottom:max(14px,env(safe-area-inset-bottom));display:none;width:min(calc(100% - 28px),420px);background:color-mix(in srgb,var(--inv) 92%,transparent);color:var(--invink);padding:10px 12px 10px 14px;border:1px solid color-mix(in srgb,var(--invink) 18%,transparent);border-radius:999px;box-shadow:0 12px 36px #0005;backdrop-filter:blur(18px)}.timer.on{display:flex;align-items:center}.tlab{font:700 8px/1 var(--mono);letter-spacing:.14em;opacity:.55}.tnum{font:760 22px/1 var(--mono);letter-spacing:-.05em;margin-top:3px}.timer button{margin-left:auto;border:0;background:var(--invink);color:var(--inv);border-radius:999px;padding:9px 13px;font:700 8px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase}
 @media(min-width:600px){.shell{padding:0 22px}.days{gap:10px}.day .n{font-size:8px}}
-.mobclock{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:8px}.mobclock output{font:750 20px/1 var(--mono);font-variant-numeric:tabular-nums;min-width:64px}.mobclock button{min-height:44px;min-width:64px;border:1px solid var(--line);background:none;color:var(--ink);padding:10px 12px;font:700 10px/1 var(--mono);touch-action:manipulation}.mobclock button:first-of-type{border-color:var(--ink)}.mobstate{flex-basis:100%;font:600 10px/1.4 var(--mono);color:var(--muted)}.mobclock.complete output{color:var(--blue)}.mobclock button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.mobclock{grid-column:1/-1;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;margin-top:2px;padding:7px 8px;border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,var(--ink) 2%,transparent)}.mobclock output{font:760 17px/1 var(--mono);font-variant-numeric:tabular-nums;min-width:52px}.mobclock button{min-height:34px;border:0;border-radius:999px;background:none;color:var(--muted);padding:7px 9px;font:700 8px/1 var(--mono);letter-spacing:.05em;touch-action:manipulation}.mobclock button:first-of-type{justify-self:start;background:var(--ink);color:var(--paper);padding-inline:12px}.mobstate{grid-column:1/-1;font:600 9px/1.35 var(--mono);color:var(--muted)}.mobclock.complete output{color:var(--blue)}.mobclock button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
 </style>
 </head>
 <body>
-<div class="top"><div class="shell"><div class="mast"><div><div class="brand">PHASE 4 / BUILD + SHARPEN</div><div class="clock" id="now">--:--</div></div><div class="status" id="status"></div></div><div class="days" id="days"></div></div></div>
+<div class="top"><div class="shell"><div class="mast"><div><div class="brand">LEAN ENGINE / RUN + RECOMPOSE</div><div class="clock" id="now">--:--</div></div><div class="status" id="status"></div></div><div class="days" id="days"></div></div></div>
 <main class="shell" id="view"></main>
 <div class="timer" id="timer"><div><div class="tlab">REST / RECOVER</div><div class="tnum" id="tnum">0:00</div></div><button id="tstop">STOP</button></div>
 <script>
 const PLAN=[
-{key:"mon",d:"M",n:"Lower A",title:"Lower A · Quads",focus:"Quad focus + 2 mi easy",window:"6:15 – 7:20",
- warm:{t:"6:15",title:"Warm-up",n:"3 min bike or row easy · 10 leg swings per side · 15 bodyweight squats · 10 walking lunges"},
+{key:"mon",d:"M",n:"Upper A",title:"Upper A · Frame",focus:"Upper chest + lats + delts · 2–3 mi easy",window:"30–45 lift + run",
+ warm:{t:"",title:"Warm-up",n:"3 min easy cardio · band pull-aparts × 15 · scap push-ups × 10 · 1 light press set"},
  ex:[
-  {n:"DB front squat",rx:"4 × 8",sets:4,rest:90,cue:"Two DBs racked at shoulders. RPE 8 — two reps in reserve on set one."},
-  {n:"DB Bulgarian split squat",rx:"3 × 10",sets:3,cue:"Per leg. Rear foot on bench, torso slightly forward.",g:"B"},
-  {n:"Standing calf raise",rx:"3 × 15",sets:3,rest:60,cue:"Two-second pause at the top.",g:"B"},
-  {n:"DB step-up",rx:"3 × 10",sets:3,cue:"Per leg, 18–20 inch box. Drive through the heel, no push off the trail leg.",g:"C"},
-  {n:"Hanging knee raise",rx:"3 × 12",sets:3,rest:60,cue:"Slow lower, no swing.",g:"C"},
-  {n:"Wall sit",rx:"2 × 45s",sets:2,rest:30,cue:"Finisher."}],
- run:{t:"~6:55",title:"Run — easy",main:"2 mi @ 9:45–10:15",n:"A flush, not a workout. If it's dipping under 9:30 you're running it too hard."},
- fuel:{m:"2,650–2,750 kcal<br>190P · 300C · 75F",n:"Pre-lift: 150–250 kcal of fast carbs only — chocolate milk or half a banana. Fasted is fine today. Full breakfast after."}},
+  {n:"Incline DB press",rx:"3 × 6–10",sets:3,rest:90,cue:"Primary press. Stop with ~2 reps in reserve. Add load only after all 3 sets hit 10 clean reps."},
+  {n:"Chest-supported row",rx:"3 × 8–12",sets:3,cue:"Pull elbows toward hips; full stretch at the bottom.",g:"B"},
+  {n:"Lat pulldown",rx:"3 × 8–12",sets:3,rest:75,cue:"Neutral or medium grip. Drive elbows down; do not turn it into a curl.",g:"B"},
+  {n:"DB lateral raise",rx:"3 × 12–20",sets:3,cue:"Controlled, light, no swing. Delts are a visual priority this block.",g:"C"},
+  {n:"Cable crunch",rx:"3 × 10–15",sets:3,rest:45,cue:"Round ribs toward pelvis. Progress the load like any other lift.",g:"C"}],
+ run:{t:"AFTER LIFT",title:"Run — easy",main:"2–3 MI EASY",n:"Conversational pace. No pace target. This run should be low-cost."},
+ fuel:{m:"2,500–2,600 kcal<br>175P · ~300C · ~70F",n:"Pre-log a 250–350 kcal evening snack in MyFitnessPal. Remove the 9–11 PM decision instead of relying on willpower."}},
 
-{key:"tue",d:"T",n:"Push",title:"Upper Push",focus:"Push + intervals",window:"6:15 – 7:25",
- warm:{t:"6:15",title:"Warm-up",n:"Arm circles · 15 band pull-aparts · one light set of incline press"},
+{key:"tue",d:"T",n:"Lower A",title:"Lower A · Quads",focus:"Quads + calves + abs · 2–4 mi easy",window:"30–45 lift + run",
+ warm:{t:"",title:"Warm-up",n:"3 min bike · leg swings × 10/side · bodyweight squat × 15 · walking lunge × 8/side"},
  ex:[
-  {n:"Incline DB press",rx:"4 × 8",sets:4,rest:90,cue:"Primary progression lift. Start 45 lb — drop to 40 if the last set gets ugly."},
-  {n:"Seated DB shoulder press",rx:"3 × 10",sets:3,cue:"Start 25 lb.",g:"B"},
-  {n:"DB lateral raise",rx:"3 × 15",sets:3,rest:60,cue:"Light, 12–15 lb. Elbows lead.",g:"B"},
-  {n:"DB floor press",rx:"3 × 12",sets:3,cue:"Flat press works too.",g:"C"},
-  {n:"Overhead DB triceps ext.",rx:"3 × 12",sets:3,rest:45,cue:"Cable pushdown is a fine swap.",g:"C"}],
- run:{t:"~6:50",title:"Run — intervals",main:"5 × 800m @ 7:50–8:10",n:"1 mi easy warm-up · 2 min slow jog between reps · 0.5 mi cooldown. Go to 6 reps from week 3."},
- fuel:{m:"2,650–2,750 kcal<br>190P · 300C · 75F",n:"Eat before this one — 150–250 kcal of carbs. Intervals on empty is how the session falls apart at rep four."}},
+  {n:"Leg press",rx:"3 × 8–12",sets:3,rest:90,cue:"Full controlled range. Leave ~2 reps in reserve; do not grind before the run."},
+  {n:"Bulgarian split squat",rx:"3 × 8–10",sets:3,cue:"Per leg. Slight forward torso; drive through the whole front foot.",g:"B"},
+  {n:"Leg extension",rx:"2 × 12–15",sets:2,rest:60,cue:"Slow eccentric, hard quad squeeze.",g:"B"},
+  {n:"Standing calf raise",rx:"3 × 10–15",sets:3,cue:"Pause at the top and bottom.",g:"C"},
+  {n:"Hanging knee raise",rx:"3 × 8–12",sets:3,rest:45,cue:"Posterior pelvic tilt; no swing.",g:"C"}],
+ run:{t:"AFTER LIFT",title:"Run — easy",main:"2–4 MI EASY",n:"Keep it truly easy. Lower-body growth requires most weekday miles to stay cheap."},
+ fuel:{m:"2,500–2,600 kcal<br>175P · ~300C · ~70F",n:"Carbs are useful here. Do not create a larger deficit by under-fueling the run."}},
 
-{key:"wed",d:"W",n:"Lower B",title:"Lower B · Hinge",focus:"Posterior chain + 3 mi easy",window:"6:15 – 7:30",
- warm:{t:"6:15",title:"Warm-up",n:"3 min row · 10 cat-cows · 15 glute bridges · 10 unloaded good mornings"},
+{key:"wed",d:"W",n:"Upper B",title:"Upper B · V-Taper",focus:"Back + shoulders + arms · 3–5 mi easy",window:"30–45 lift + run",
+ warm:{t:"",title:"Warm-up",n:"Band pull-aparts × 15 · dead hang 20 sec · face pull × 15 · 1 light row set"},
  ex:[
-  {n:"DB Romanian deadlift",rx:"4 × 10",sets:4,rest:90,cue:"Hinge, don't squat. Soft knees, shins vertical, load the hamstrings."},
-  {n:"Cable pull-through",rx:"3 × 15",sets:3,cue:"Rope between the legs, hinge back, snap the hips forward. Squeeze at the top — this is a hinge, not a squat. No cable: DB frog pump, 3 × 20.",g:"B"},
-  {n:"Single-leg DB deadlift",rx:"3 × 8",sets:3,rest:75,cue:"Per leg. Doubles as ankle and hip stability for running.",g:"B"},
-  {n:"DB sumo squat",rx:"3 × 12",sets:3,cue:"Wide stance, one DB between the legs.",g:"C"},
-  {n:"Standing side crunch",rx:"3 × 15",sets:3,rest:60,cue:"Per side, 45 lb.",g:"C"},
-  {n:"Side plank",rx:"2 × 40s",sets:2,rest:30,cue:"Per side."}],
- run:{t:"~6:58",title:"Run — easy",main:"3 mi @ 9:45–10:15",n:"Conversational. Heart rate under 135."},
- fuel:{m:"2,650–2,750 kcal<br>190P · 300C · 75F",n:"Biggest session of the week for the flanks and for running economy. Don't short the carbs today."}},
+  {n:"Assisted pull-up",rx:"3 × 6–10",sets:3,rest:90,cue:"Use enough assistance to live in the rep range. Progress by reducing assistance."},
+  {n:"Seated DB shoulder press",rx:"3 × 8–12",sets:3,cue:"Start near your current 25–30 lb range and own the reps.",g:"B"},
+  {n:"Single-arm cable row",rx:"3 × 10–12",sets:3,rest:60,cue:"Per side. Reach forward, then pull to the hip.",g:"B"},
+  {n:"Rear-delt fly",rx:"3 × 12–20",sets:3,cue:"Chest-supported if possible.",g:"C"},
+  {n:"Incline DB curl",rx:"2 × 10–15",sets:2,cue:"Full stretch.",g:"C"},
+  {n:"Rope pressdown",rx:"2 × 10–15",sets:2,rest:45,cue:"Lock elbows in place.",g:"C"}],
+ run:{t:"AFTER LIFT",title:"Run — easy + strides",main:"3–5 MI EASY",n:"Optional: 4 × 20 sec relaxed strides with full easy recovery. This is enough speed stimulus for now."},
+ fuel:{m:"2,500–2,600 kcal<br>175P · ~300C · ~70F",n:"Aim for 35–50g protein at 4 eating occasions rather than rescuing the total at night."}},
 
-{key:"thu",d:"T",n:"Pull",title:"Upper Pull",focus:"Pull + tempo",window:"6:15 – 7:25",
- warm:{t:"6:15",title:"Warm-up",n:"Band pull-aparts · two 20-second dead hangs · one light row set"},
+{key:"thu",d:"T",n:"Lower B",title:"Lower B · Hinge",focus:"Hamstrings + glutes + trunk · 2–4 mi easy",window:"30–45 lift + run",
+ warm:{t:"",title:"Warm-up",n:"3 min row · glute bridge × 15 · unloaded RDL × 12 · reverse lunge × 8/side"},
  ex:[
-  {n:"Single-arm DB row",rx:"4 × 10",sets:4,rest:75,cue:"Per arm, bench-supported. Primary progression lift. Pull to the hip, not the armpit."},
-  {n:"Pull-up",rx:"3 × max",sets:3,cue:"Lat pulldown, assisted, or negatives if you can't clear six.",g:"B"},
-  {n:"DB rear delt fly",rx:"3 × 15",sets:3,rest:60,cue:"Light. Chest on an incline bench.",g:"B"},
-  {n:"Incline DB curl",rx:"3 × 10",sets:3,cue:"Full stretch at the bottom.",g:"C"},
-  {n:"Face pull",rx:"3 × 20",sets:3,rest:45,cue:"Cable or band. Postural insurance for four days at a desk.",g:"C"}],
- run:{t:"~6:50",title:"Run — tempo",main:"22 min @ 8:20–8:40",n:"1 mi easy in · continuous tempo · 0.5 mi cooldown. Comfortably hard, three-word answers. Add 2 min every second week."},
- fuel:{m:"2,650–2,750 kcal<br>190P · 300C · 75F",n:"Carbs before this one too. Tempo is the other session that needs fuel in the tank."}},
+  {n:"Romanian deadlift",rx:"3 × 6–10",sets:3,rest:90,cue:"Hips back, soft knees, long hamstring. Stop before form changes."},
+  {n:"Reverse lunge",rx:"3 × 8–10",sets:3,cue:"Per leg. Controlled step and stable knee.",g:"B"},
+  {n:"Seated leg curl",rx:"3 × 10–15",sets:3,rest:60,cue:"Full stretch; squeeze each rep.",g:"B"},
+  {n:"Seated calf raise",rx:"3 × 12–20",sets:3,cue:"Slow reps.",g:"C"},
+  {n:"Ab wheel / rollout",rx:"3 × 6–12",sets:3,rest:45,cue:"Shorten range before your low back arches.",g:"C"}],
+ run:{t:"AFTER LIFT",title:"Run — easy",main:"2–4 MI EASY",n:"No tempo work. Recovery budget goes to muscle and Saturday endurance."},
+ fuel:{m:"2,500–2,600 kcal<br>175P · ~300C · ~70F",n:"Keep sodium and carbs normal. Day-to-day scale noise is not fat gain."}},
 
-{key:"fri",d:"F",n:"Arms",title:"Shoulders · Arms · Core",focus:"Lightest lift of the week",window:"6:20 – 7:25",
- warm:{t:"6:20",title:"HIIT row opener",n:"30 seconds on, 15 seconds off, 12 rounds. Your usual."},
+{key:"fri",d:"F",n:"Physique",title:"Physique · Detail",focus:"Delts + upper chest + arms + abs · 2–3 mi easy",window:"25–35 lift + run",
+ warm:{t:"",title:"Warm-up",n:"2 min easy cardio · arm circles · band pull-aparts × 15"},
  ex:[
-  {n:"DB lateral raise",rx:"4 × 15",sets:4,cue:"Light. Elbows lead, no swing.",g:"A"},
-  {n:"DB hammer curl",rx:"4 × 10",sets:4,rest:60,cue:"Neutral grip throughout.",g:"A"},
-  {n:"DB Arnold press",rx:"3 × 10",sets:3,cue:"Rotate from palms-in to palms-out.",g:"B"},
-  {n:"Overhead DB triceps ext.",rx:"3 × 12",sets:3,rest:60,cue:"One DB, both hands.",g:"B"},
-  {n:"Medicine ball slam",rx:"3 × 15",sets:3,rest:45,cue:"15 lb. Full overhead reach."},
-  {n:"Plank",rx:"3 × 45s",sets:3,rest:30,cue:"Ribs down, glutes on."}],
- run:{t:"~7:10",title:"Run — optional",main:"2 mi very easy, or 15 min spin",n:"Genuinely optional. Skip it if your legs feel heavy — tomorrow matters more."},
- fuel:{m:"2,650–2,750 kcal<br>190P · 300C · 75F",n:"Front-load carbs through the afternoon so you start tomorrow's long run topped off."}},
+  {n:"Cable lateral raise",rx:"3 × 12–20",sets:3,cue:"Per side. Keep tension on the delt.",g:"A"},
+  {n:"Incline machine / DB press",rx:"3 × 10–15",sets:3,rest:60,cue:"Lighter than Monday. Controlled pump work.",g:"A"},
+  {n:"Straight-arm pulldown",rx:"3 × 10–15",sets:3,cue:"Think lats, not triceps.",g:"B"},
+  {n:"Hammer curl",rx:"3 × 10–15",sets:3,rest:45,cue:"No torso swing.",g:"B"},
+  {n:"Overhead cable triceps ext.",rx:"3 × 10–15",sets:3,cue:"Long-head triceps focus.",g:"C"},
+  {n:"Cable woodchop",rx:"2 × 12/side",sets:2,rest:45,cue:"Rotate through upper torso; keep pelvis controlled.",g:"C"}],
+ run:{t:"AFTER LIFT",title:"Run — recovery",main:"2–3 MI VERY EASY",n:"Keep this gentle. Tomorrow’s long run is the endurance anchor."},
+ fuel:{m:"2,550–2,650 kcal<br>175P · ~315C · ~70F",n:"Bank carbs for Saturday. The evening snack is still planned, not improvised."}},
 
-{key:"sat",d:"S",n:"Long",title:"Long Run",focus:"No clock. Fuel first.",window:"Open",warm:null,ex:[],
- run:{t:"",title:"Run — long",main:"Week 1 · 8 mi @ 9:30–10:00",n:"Ladder: 8 → 10 → 12 → 8 (cutback) → 12 → 13 → 14 → 10. Over 10 mi: one gel at mile 7, another at 11. Take 40–60g carbs beforehand."},
- fuel:{m:"2,800–2,900 kcal<br>180P · 350C · 75F",n:"Weigh in and take waist and hip measurements before eating, every second Saturday. Same spot each time."}},
+{key:"sat",d:"S",n:"Long",title:"Long Run",focus:"Endurance stays. No lifting.",window:"6–14 mi",warm:null,ex:[],
+ run:{t:"",title:"Run — long",main:"6–14 MI EASY",n:"Choose distance by feel and recent volume. Keep most of it conversational. For runs >75 min, take 30–60g carbohydrate per hour plus fluids/electrolytes."},
+ fuel:{m:"2,750–3,050 kcal<br>170–180P · HIGH CARB",n:"Fuel the run instead of trying to win the deficit today. Long-run day can sit near maintenance."}},
 
-{key:"sun",d:"S",n:"Rest",title:"Rest",focus:"Walking only",window:"—",warm:null,ex:[],
- run:{t:"",title:"Rest day",main:"Walking only",n:"A real rest day, not an easy-run day. This is where the adaptation actually happens."},
- fuel:{m:"2,200–2,300 kcal<br>190P · 180C · 70F",n:"Carbs pull back to about 180g. Protein stays high."}}];
-const START=new Date(2026,7,31), LADDER=[8,10,12,8,12,13,14,10];
+{key:"sun",d:"S",n:"Recover",title:"Recovery",focus:"Walk + mobility + reset",window:"No formal training",warm:null,ex:[],
+ run:{t:"",title:"Recovery",main:"WALK ONLY",n:"A real recovery day. Easy walking is fine; no make-up mileage."},
+ fuel:{m:"2,300–2,400 kcal<br>175P · ~220C · ~75F",n:"Reset food prep and sleep. Do not compensate for a high-calorie meal by crash dieting."}}];
+const START=new Date(2026,9,6), LADDER=[6,8,10,12,8,10,12,14,8,10,12,14,10,12,14,8];
+function blockPhase(){const w=weekNo();if([5,10,15].includes(w))return "DELOAD";if(w<=4)return "BASE";if(w<=9)return "BUILD";if(w<=14)return "BUILD II";return "REVEAL"}
 const MOBILITY={
  am:{title:"AM / MOBILITY",time:"~7 MIN",note:"Move smoothly. No forcing range first thing in the morning.",moves:[["Cat–cow","6 slow reps"],["90/90 hip switches","8 total"],["World’s greatest stretch","3 / side"],["Knee-to-wall ankle rocks","10 / side"],["Open-book T-spine rotation","5 / side"],["Deep squat pry + reach","45 sec"]]},
  pm:{title:"PM / DOWNSHIFT",time:"~8 MIN",note:"Easy breathing, long exhales. Mild tension is enough; never push into pain.",moves:[["Half-kneeling hip flexor / couch stretch","45 sec / side"],["Figure-four glute stretch","45 sec / side"],["Supine hamstring stretch","45 sec / side"],["Wall calf stretch","45 sec / side"],["Open-book T-spine rotation","5 slow / side"],["Child’s pose + side reach","45 sec / side"]]}
@@ -106,8 +106,8 @@ const todayIdx=()=>(new Date().getDay()+6)%7;
 const dateKey=()=>new Date().toISOString().slice(0,10);
 let sel=todayIdx(), prog={};
 const $=x=>document.getElementById(x);
-function storageGet(){try{return localStorage.getItem("p4:"+dateKey())}catch(e){return null}}
-function save(){try{localStorage.setItem("p4:"+dateKey(),JSON.stringify(prog))}catch(e){}}
+function storageGet(){try{return localStorage.getItem("lean-engine:"+dateKey())}catch(e){return null}}
+function save(){try{localStorage.setItem("lean-engine:"+dateKey(),JSON.stringify(prog))}catch(e){}}
 try{prog=JSON.parse(storageGet()||"{}")||{}}catch(e){prog={}}
 function weekNo(){return Math.max(1,Math.floor((new Date()-START)/604800000)+1)}
 function renderDays(){$("days").innerHTML=PLAN.map((p,i)=>`<button class="day ${i===todayIdx()?"today":""}" aria-selected="${i===sel}" data-i="${i}"><span class="d">${p.d}</span><span class="n">${p.n}</span></button>`).join("")}
@@ -122,13 +122,13 @@ function refreshStretches(){document.querySelectorAll("[data-stretch]").forEach(
 function stretchAction(el,action){const [which,i]=el.dataset.stretch.split(":"),t=stretchState(which,+i);if(action==="reset"){delete stretchTimers[el.dataset.stretch]}else if(action==="done"){finishStretch(t)}else if(t.running){t.elapsed=stretchElapsed(t);t.running=false}else{if(t.complete){t.side=1;t.elapsed=0;t.complete=false;t.finished=false}else if(t.finished){t.side++;t.elapsed=0;t.finished=false}t.at=Date.now();t.running=true;unlockAudio()}refreshStretches()}
 setInterval(refreshStretches,250);
 document.addEventListener("visibilitychange",refreshStretches);
-function renderView(){const p=PLAN[sel];let total=p.ex.reduce((a,e)=>a+e.sets,0),done=p.ex.reduce((a,e,i)=>a+Math.min(prog[p.key+i]||0,e.sets),0);let runMain=p.run.main,runNote=p.run.n;if(p.key==="sat"){let w=weekNo(),mi=LADDER[(w-1)%LADDER.length];runMain=`W${w} / ${mi} MI`;runNote=`${mi} miles @ 9:30–10:00. `+p.run.n.replace(/^Week 1 · 8 mi @ 9:30–10:00\.?\s*/,"")}
+function renderView(){const p=PLAN[sel];let total=p.ex.reduce((a,e)=>a+e.sets,0),done=p.ex.reduce((a,e,i)=>a+Math.min(prog[p.key+i]||0,e.sets),0);let runMain=p.run.main,runNote=p.run.n;if(p.key==="sat"){let w=weekNo(),mi=LADDER[(w-1)%LADDER.length];runMain=`W${w} / ${mi} MI`;runNote=`${mi} miles easy. `+p.run.n}
 let h=`<section class="hero"><div class="eyebrow">${sel===todayIdx()?"TODAY":"WEEK VIEW"}</div><h1>${p.title}</h1><div class="meta"><span>${p.focus}</span><span>${p.window}</span></div>${total?`<div class="progress"><i style="width:${done/total*100}%"></i></div>`:""}</section>`;
 h+=mobilityHTML("am");if(p.warm)h+=`<section class="section"><div class="label">01 / PREP</div><div class="warm"><b>${p.warm.t}</b>${p.warm.n}</div></section>`;
 if(p.ex.length){h+=`<section class="section"><div class="label">02 / STRENGTH · ${done}/${total} SETS</div>`;let i=0;while(i<p.ex.length){let g=p.ex[i].g;if(g){let j=i,s="";while(j<p.ex.length&&p.ex[j].g===g){s+=exHTML(p.ex[j],j,p.key);j++}h+=`<div class="grp"><div class="grpl">SUPERSET / ALTERNATE</div>${s}</div>`;i=j}else{h+=exHTML(p.ex[i],i,p.key);i++}}h+=`</section>`}
 h+=`<section class="run"><div class="runhead"><span>${p.run.title}</span><span>${p.run.t||"—"}</span></div><div class="rmain">${runMain}</div><div class="rnote">${runNote}</div></section>`;
 h+=mobilityHTML("pm");h+=`<section class="fuel"><div class="fuelh">FUEL / DAILY TARGET</div><div class="macros">${p.fuel.m}</div><div class="fueln">${p.fuel.n}</div></section>`;
-h+=`<div class="zones"><span><b>EASY</b> 9:45–10:15 · HR &lt;135</span><span><b>LONG</b> 9:30–10:00</span><span><b>TEMPO</b> 8:20–8:40 · HR 155–165</span><span><b>INTERVAL</b> 7:50–8:10</span><span><b>LOAD</b> + when top set has 2 RIR</span></div>`;
+h+=`<div class="zones"><span><b>EASY</b> conversational · RPE 2–3</span><span><b>LONG</b> conversational · fuel &gt;75 min</span><span><b>LIFT</b> finish most sets with 1–2 RIR</span><span><b>PROGRESS</b> reps first, then load</span><span><b>RATE</b> target −0.3 to −0.6 lb / week</span></div>`;
 if(p.ex.length)h+=`<button class="reset" id="reset">RESET TODAY’S SETS</button>`;$("view").innerHTML=h}
 document.addEventListener("click",e=>{let control=e.target.closest("[data-stretch-action]");if(control){stretchAction(control.closest("[data-stretch]"),control.dataset.stretchAction);return}let mob=e.target.closest(".mobdone");if(mob){let k="mob:"+mob.dataset.mob;prog[k]=!prog[k];save();renderView();if(navigator.vibrate)navigator.vibrate(15);return}let day=e.target.closest(".day");if(day){sel=+day.dataset.i;renderDays();renderView();scrollTo(0,0);return}let rest=e.target.closest(".rest");if(rest){e.stopPropagation();startTimer(+rest.dataset.rest);return}let ex=e.target.closest(".ex");if(ex){let p=PLAN[sel],i=+ex.dataset.ex,k=p.key+i,max=p.ex[i].sets;prog[k]=((prog[k]||0)>=max)?0:(prog[k]||0)+1;save();renderView();if(navigator.vibrate)navigator.vibrate(15);return}if(e.target.id==="reset"){PLAN[sel].ex.forEach((_,i)=>delete prog[PLAN[sel].key+i]);save();renderView()}});
 let tid,left=0;const fmt=s=>Math.floor(s/60)+":"+String(s%60).padStart(2,"0");
@@ -137,6 +137,6 @@ function unlockAudio(){try{audio=audio||new(window.AudioContext||window.webkitAu
 function beep(){try{if(!audio)return;let o=audio.createOscillator(),g=audio.createGain();o.connect(g);g.connect(audio.destination);o.frequency.value=880;g.gain.value=.08;o.start();o.stop(audio.currentTime+.14);o.onended=()=>{o.disconnect();g.disconnect()}}catch(e){}}
 function startTimer(s){unlockAudio();clearInterval(tid);left=s;$("timer").classList.add("on");$("tnum").textContent=fmt(left);tid=setInterval(()=>{left--;$("tnum").textContent=fmt(Math.max(0,left));if(left<=0){clearInterval(tid);$("tnum").textContent="GO";beep();if(navigator.vibrate)navigator.vibrate([100,70,100]);setTimeout(stopTimer,2600)}},1000)}
 function stopTimer(){clearInterval(tid);$("timer").classList.remove("on")} $("tstop").onclick=stopTimer;
-function tick(){let d=new Date(),m=d.getHours()*60+d.getMinutes(),wd=d.getDay()>=1&&d.getDay()<=4;$("now").textContent=d.toLocaleTimeString([],{hour:"2-digit",minute:"2-digit",hour12:false});$("status").innerHTML=wd&&m>240&&m<480?`<b>${Math.floor((480-m)/60)}H ${(480-m)%60}M</b><br>UNTIL OUT THE DOOR`:wd&&m>=480&&m<540?`<b>GO</b><br>YOU’RE LATE`:`WEEK ${weekNo()}<br>BUILD + SHARPEN`}
+function tick(){let d=new Date(),m=d.getHours()*60+d.getMinutes(),wd=d.getDay()>=1&&d.getDay()<=4;$("now").textContent=d.toLocaleTimeString([],{hour:"2-digit",minute:"2-digit",hour12:false});$("status").innerHTML=wd&&m>240&&m<480?`<b>${Math.floor((480-m)/60)}H ${(480-m)%60}M</b><br>UNTIL OUT THE DOOR`:wd&&m>=480&&m<540?`<b>GO</b><br>YOU’RE LATE`:`WEEK ${weekNo()} · ${blockPhase()}<br>LEAN ENGINE`}
 tick();setInterval(tick,10000);renderDays();renderView();
 </script></body></html>
