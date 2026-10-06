@@ -90,13 +90,13 @@ const PLAN=[
  fuel:{m:"2,550–2,650 kcal<br>175P · ~315C · ~70F",n:"Bank carbs for Saturday. The evening snack is still planned, not improvised."}},
 
 {key:"sat",d:"S",n:"Long",title:"Long Run",focus:"Endurance stays. No lifting.",window:"6–14 mi",warm:null,ex:[],
- run:{t:"",title:"Run — long",main:"6–14 MI EASY",n:"Choose distance by feel and recent volume. Keep most of it conversational. For runs >75 min, take 30–60g carbohydrate per hour plus fluids/electrolytes."},
+ run:{t:"",title:"Run — long",main:"6–14+ MI / BY FEEL",n:"No prescribed weekly ladder. Choose the distance from recovery, desire and recent volume — 6, 8, 13+ are all valid. Keep most of it conversational. For runs >75 min, take 30–60g carbohydrate per hour plus fluids/electrolytes."},
  fuel:{m:"2,750–3,050 kcal<br>170–180P · HIGH CARB",n:"Fuel the run instead of trying to win the deficit today. Long-run day can sit near maintenance."}},
 
 {key:"sun",d:"S",n:"Recover",title:"Recovery",focus:"Walk + mobility + reset",window:"No formal training",warm:null,ex:[],
  run:{t:"",title:"Recovery",main:"WALK ONLY",n:"A real recovery day. Easy walking is fine; no make-up mileage."},
  fuel:{m:"2,300–2,400 kcal<br>175P · ~220C · ~75F",n:"Reset food prep and sleep. Do not compensate for a high-calorie meal by crash dieting."}}];
-const START=new Date(2026,9,6), LADDER=[6,8,10,12,8,10,12,14,8,10,12,14,10,12,14,8];
+const START=new Date(2026,9,12);
 function blockPhase(){const w=weekNo();if([5,10,15].includes(w))return "DELOAD";if(w<=4)return "BASE";if(w<=9)return "BUILD";if(w<=14)return "BUILD II";return "REVEAL"}
 const MOBILITY={
  am:{title:"AM / MOBILITY",time:"~7 MIN",note:"Move smoothly. No forcing range first thing in the morning.",moves:[["Cat–cow","6 slow reps"],["90/90 hip switches","8 total"],["World’s greatest stretch","3 / side"],["Knee-to-wall ankle rocks","10 / side"],["Open-book T-spine rotation","5 / side"],["Deep squat pry + reach","45 sec"]]},
@@ -122,7 +122,7 @@ function refreshStretches(){document.querySelectorAll("[data-stretch]").forEach(
 function stretchAction(el,action){const [which,i]=el.dataset.stretch.split(":"),t=stretchState(which,+i);if(action==="reset"){delete stretchTimers[el.dataset.stretch]}else if(action==="done"){finishStretch(t)}else if(t.running){t.elapsed=stretchElapsed(t);t.running=false}else{if(t.complete){t.side=1;t.elapsed=0;t.complete=false;t.finished=false}else if(t.finished){t.side++;t.elapsed=0;t.finished=false}t.at=Date.now();t.running=true;unlockAudio()}refreshStretches()}
 setInterval(refreshStretches,250);
 document.addEventListener("visibilitychange",refreshStretches);
-function renderView(){const p=PLAN[sel];let total=p.ex.reduce((a,e)=>a+e.sets,0),done=p.ex.reduce((a,e,i)=>a+Math.min(prog[p.key+i]||0,e.sets),0);let runMain=p.run.main,runNote=p.run.n;if(p.key==="sat"){let w=weekNo(),mi=LADDER[(w-1)%LADDER.length];runMain=`W${w} / ${mi} MI`;runNote=`${mi} miles easy. `+p.run.n}
+function renderView(){const p=PLAN[sel];let total=p.ex.reduce((a,e)=>a+e.sets,0),done=p.ex.reduce((a,e,i)=>a+Math.min(prog[p.key+i]||0,e.sets),0);let runMain=p.run.main,runNote=p.run.n;if(p.key==="sat"){let w=weekNo();runMain=`W${w} / 6–14+ MI`;runNote=p.run.n}
 let h=`<section class="hero"><div class="eyebrow">${sel===todayIdx()?"TODAY":"WEEK VIEW"}</div><h1>${p.title}</h1><div class="meta"><span>${p.focus}</span><span>${p.window}</span></div>${total?`<div class="progress"><i style="width:${done/total*100}%"></i></div>`:""}</section>`;
 h+=mobilityHTML("am");if(p.warm)h+=`<section class="section"><div class="label">01 / PREP</div><div class="warm"><b>${p.warm.t}</b>${p.warm.n}</div></section>`;
 if(p.ex.length){h+=`<section class="section"><div class="label">02 / STRENGTH · ${done}/${total} SETS</div>`;let i=0;while(i<p.ex.length){let g=p.ex[i].g;if(g){let j=i,s="";while(j<p.ex.length&&p.ex[j].g===g){s+=exHTML(p.ex[j],j,p.key);j++}h+=`<div class="grp"><div class="grpl">SUPERSET / ALTERNATE</div>${s}</div>`;i=j}else{h+=exHTML(p.ex[i],i,p.key);i++}}h+=`</section>`}
